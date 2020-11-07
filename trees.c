@@ -1,24 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct node
+struct TreeNode
 {
     int key;
-    struct node *left;
-    struct node *right;
+    struct TreeNode *left;
+    struct TreeNode *right;
 };
 
-// Create a node
-struct node *newNode(int item)
+// Create a TreeNode
+struct TreeNode *newTreeNode(int item)
 {
-    struct node *t = (struct node *)malloc(sizeof(struct node));
+    struct TreeNode *t = (struct TreeNode *)malloc(sizeof(struct TreeNode));
     t->key = item;
     t->left = t->right = NULL;
     return t;
 }
 
 // Inorder Traversal
-void inorderTraversal(struct node *root)
+void inorderTraversal(struct TreeNode *root)
 {
     if (root == NULL)
     {
@@ -32,27 +32,27 @@ void inorderTraversal(struct node *root)
     }
 }
 
-struct node *insertval(struct node *node, int data)
+struct TreeNode *insertval(struct TreeNode *TreeNode, int data)
 {
-    if (node == NULL)
-        return newNode(data);
+    if (TreeNode == NULL)
+        return newTreeNode(data);
 
-    if (data > node->key)
-        node->right = insertval(node->right, data);
+    if (data > TreeNode->key)
+        TreeNode->right = insertval(TreeNode->right, data);
     else
-        node->left = insertval(node->left, data);
+        TreeNode->left = insertval(TreeNode->left, data);
 
-    return node;
+    return TreeNode;
 }
 
-struct node *minval(struct node *node)
+struct TreeNode *minval(struct TreeNode *TreeNode)
 {
-    struct node *current = node;
+    struct TreeNode *current = TreeNode;
     while (current && current->left != NULL)
         current = current->left;
     return current;
 }
-void print2D(struct node *root, int space)
+void print2D(struct TreeNode *root, int space)
 {
     // Base case
     if (root == NULL)
@@ -64,7 +64,7 @@ void print2D(struct node *root, int space)
     // Process right child first
     print2D(root->right, space);
 
-    // Print current node after space
+    // Print current TreeNode after space
     // count
     printf("\n");
     for (int i = 10; i < space; i++)
@@ -75,20 +75,26 @@ void print2D(struct node *root, int space)
     print2D(root->left, space);
 }
 
-// int main()
-// {
-//     struct node *root = NULL;
-//     root = insertval(root, 8);
-//     root = insertval(root, 3);
-//     root = insertval(root, 1);
-//     root = insertval(root, 6);
-//     root = insertval(root, 7);
-//     root = insertval(root, 10);
-//     root = insertval(root, 14);
-//     root = insertval(root, 4);
-
-//     printf("Inorder traversal: ");
-//     inorderTraversal(root);
-//     printf("\n");
-//     print2D(root, 0);
-// }
+void treeImplementation()
+{
+    struct TreeNode *root = NULL;
+    int val = 0;
+    while (1)
+    {
+        printf("Start? ");
+        printf("Enter All the values for the binary tree: ");
+        scanf("%d ", &val);
+        if (val != -1)
+        {
+            root = insertval(root, val);
+        }
+        else
+        {
+            break;
+        }
+    }
+    printf("Inorder traversal: ");
+    inorderTraversal(root);
+    printf("\n");
+    print2D(root, 0);
+}
